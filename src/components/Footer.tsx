@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
-      From{" "}
+      Built by{" "}
       <a
         href="https://www.princekouame.com"
         target="_blank"
