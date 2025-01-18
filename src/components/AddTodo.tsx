@@ -159,7 +159,7 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Quelle tâche souhaitez-vous ajouter ?"
+          placeholder="On fait quoi aujourd'hui?"
           className="w-full px-4 py-3 mt-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500 text-lg font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500"
         />
       </div>
