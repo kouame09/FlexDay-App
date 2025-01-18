@@ -60,8 +60,8 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
     }
   }, [text, description, dueDate, dueTime, tags, subTasks, onAdd]);
 
-  const addTag = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const handleAddTag = useCallback((e?: React.FormEvent) => {
+    e?.preventDefault();
     
     if (!tagName.trim()) {
       toast.error('Le nom de l\'étiquette est requis');
@@ -88,6 +88,13 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
     }
   }, [tagName, tagColor, tags]);
 
+  const handleKeyPressTag = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddTag();
+    }
+  }, [handleAddTag]);
+
   const removeTag = useCallback((id: string) => {
     try {
       setTags(prevTags => prevTags.filter(tag => tag.id !== id));
@@ -97,8 +104,8 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
     }
   }, []);
 
-  const addSubTask = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const handleAddSubTask = useCallback((e?: React.FormEvent) => {
+    e?.preventDefault();
     
     if (!subTaskText.trim()) {
       toast.error('Le texte de la sous-tâche est requis');
@@ -123,6 +130,13 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
       toast.error('Erreur lors de l\'ajout de la sous-tâche');
     }
   }, [subTaskText, subTasks]);
+
+  const handleKeyPressSubTask = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddSubTask();
+    }
+  }, [handleAddSubTask]);
 
   const removeSubTask = useCallback((id: string) => {
     try {
@@ -227,7 +241,7 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 space-y-2">
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
                   Date d'échéance
@@ -286,22 +300,26 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
               ))}
             </div>
 
-            <form onSubmit={addTag} className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
               <input
                 type="text"
                 value={tagName}
                 onChange={(e) => setTagName(e.target.value)}
+                onKeyPress={handleKeyPressTag}
                 placeholder="Nouvelle étiquette"
-                className="flex-1 px-4 py-2 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500"
+                className="flex-1 w-full px-4 py-2 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500"
               />
-              <ColorPicker color={tagColor} onChange={setTagColor} />
-              <button
-                type="submit"
-                className="p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
-              >
-                <Plus size={20} />
-              </button>
-            </form>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <ColorPicker color={tagColor} onChange={setTagColor} />
+                <button
+                  type="button"
+                  onClick={handleAddTag}
+                  className="p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors w-full sm:w-auto"
+                >
+                  <Plus size={20} />
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
 
@@ -330,21 +348,23 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
               ))}
             </div>
 
-            <form onSubmit={addSubTask} className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <input
                 type="text"
                 value={subTaskText}
                 onChange={(e) => setSubTaskText(e.target.value)}
+                onKeyPress={handleKeyPressSubTask}
                 placeholder="Nouvelle sous-tâche"
                 className="flex-1 px-4 py-2 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500"
               />
               <button
-                type="submit"
+                type="button"
+                onClick={handleAddSubTask}
                 className="p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
               >
                 <Plus size={20} />
               </button>
-            </form>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
