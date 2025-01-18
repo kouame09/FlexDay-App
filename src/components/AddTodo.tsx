@@ -1,4 +1,4 @@
-import { PlusCircle, X, Calendar, Clock, Tag, ListTodo, AlignLeft, Plus } from 'lucide-react';
+import { X, Calendar, Clock, Tag, ListTodo, AlignLeft, Plus } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tag as TagType, SubTask, Todo } from '../types/Todo';
@@ -160,7 +160,7 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Quelle tâche souhaitez-vous ajouter ?"
-          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500 text-lg font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500"
+          className="w-full px-4 py-3 mt-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500 text-lg font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500"
         />
       </div>
 
@@ -242,20 +242,22 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
             className="overflow-hidden"
           >
             <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1 space-y-2">
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
-                  Date d'échéance
-                </label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-                  <input
-                    type="date"
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-              </div>
+            <div className="flex-1 space-y-2">
+  <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
+    Date d'échéance
+  </label>
+  <div className="relative">
+    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+    <input
+      type="date"
+      value={dueDate}
+      onChange={(e) => setDueDate(e.target.value)}
+      min={new Date().toISOString().split('T')[0]}
+      className="w-full pl-10 pr-4 py-2 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none focus:border-emerald-500"
+    />
+  </div>
+</div>
+
               <div className="flex-1 space-y-2">
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">
                   Heure
@@ -314,8 +316,7 @@ export default function AddTodo({ onAdd, initialTodo }: AddTodoProps) {
                 <button
                   type="button"
                   onClick={handleAddTag}
-                  className="p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors w-full sm:w-auto"
-                >
+                  className="p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"                >
                   <Plus size={20} />
                 </button>
               </div>

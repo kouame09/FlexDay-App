@@ -7,6 +7,7 @@ import { Todo, Tag, SubTask } from './types/Todo';
 import TodoItem from './components/TodoItem';
 import AddTodo from './components/AddTodo';
 import ThemeToggle from './components/ThemeToggle';
+import Footer from './components/Footer';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>(() => {
@@ -113,7 +114,7 @@ function App() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       <ThemeToggle />
       <Toaster position="bottom-center" />
-      
+
       <div className="max-w-2xl mx-auto px-4 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -145,10 +146,11 @@ function App() {
                     setIsFormOpen(false);
                     setEditingTodo(null);
                   }}
-                  className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  className="absolute right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   <X size={24} />
                 </button>
+
                 <AddTodo onAdd={addTodo} initialTodo={editingTodo} />
               </div>
             </motion.div>
@@ -195,6 +197,7 @@ function App() {
       >
         <Plus size={24} />
       </motion.button>
+      <Footer />
     </div>
   );
 }
