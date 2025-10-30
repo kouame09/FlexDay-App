@@ -148,4 +148,4 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ---
 
-Développé avec ❤️ par [Votre Nom]
+Développé avec ❤️ par Prince Kouamé 
