@@ -7,7 +7,6 @@ import { Todo, Tag, SubTask } from './types/Todo';
 import TodoItem from './components/TodoItem';
 import AddTodo from './components/AddTodo';
 import ThemeToggle from './components/ThemeToggle';
-import Footer from './components/Footer';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>(() => {
@@ -197,7 +196,6 @@ function App() {
       >
         <Plus size={24} />
       </motion.button>
-      <Footer />
     </div>
   );
 }
